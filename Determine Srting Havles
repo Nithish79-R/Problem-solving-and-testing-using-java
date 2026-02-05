@@ -1,48 +1,25 @@
-import java.util.*;
-import java.lang.*;
-import java.io.*;
+import java.util.Set;
+import java.util.HashSet;
 
-class Ideone
-{
-    public static void main (String[] args) throws java.lang.Exception
-    {
-        Scanner sc = new Scanner(System.in);
-        int T = sc.nextInt();
-        while (T-- > 0) {
-            String S = sc.next();
-            int L = S.length();
-            String half1, half2;
+class Solution {
+    public boolean halvesAreAlike(String s) {
+        Set<Character> vowels = new HashSet<>(Set.of('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'));
+        int n = s.length();
+        int countA = 0;
+        int countB = 0;
 
-            if (L % 2 == 0) {
-                half1 = S.substring(0, L / 2);
-                half2 = S.substring(L / 2);
-            } else {
-                half1 = S.substring(0, L / 2);
-                half2 = S.substring(L / 2 + 1);
-            }
-
-            int[] freq1 = new int[26];
-            int[] freq2 = new int[26];
-
-            for (int i = 0; i < half1.length(); i++) {
-                freq1[half1.charAt(i) - 'a']++;
-                freq2[half2.charAt(i) - 'a']++;
-            }
-
-            boolean isLapindrome = true;
-            for (int i = 0; i < 26; i++) {
-                if (freq1[i] != freq2[i]) {
-                    isLapindrome = false;
-                    break;
-                }
-            }
-
-            if (isLapindrome) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
+        for (int i = 0; i < n / 2; i++) {
+            if (vowels.contains(s.charAt(i))) {
+                countA++;
             }
         }
-        sc.close();
+
+        for (int i = n / 2; i < n; i++) {
+            if (vowels.contains(s.charAt(i))) {
+                countB++;
+            }
+        }
+
+        return countA == countB;
     }
 }
